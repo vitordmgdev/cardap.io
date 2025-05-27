@@ -1,12 +1,25 @@
 import { fastify } from "fastify";
 import { fastifyCors } from "@fastify/cors";
-import { validatorCompiler, serializerCompiler, ZodTypeProvider, jsonSchemaTransform } from "fastify-type-provider-zod";
-
+import { validatorCompiler, 
+    serializerCompiler, 
+    ZodTypeProvider, 
+    jsonSchemaTransform 
+} from "fastify-type-provider-zod";
 import { fastifySwagger } from "@fastify/swagger"
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
-import { UserRoutes } from "./routes/user";
+import { AuthRoutes } from "./routes/authRoute";
+import { AppError } from "./errors/app-error";
+import cookie from "@fastify/cookie";
+import { env } from "./env";
+import dotenv from "dotenv";
 
-const app = fastify().withTypeProvider<ZodTypeProvider>();
+dotenv.config()
+
+const app = fastify({ logger: true }).withTypeProvider<ZodTypeProvider>();
+
+app.register(cookie, {
+    secret: env.COOKIE_SECRET 
+});
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
@@ -23,14 +36,25 @@ app.register(fastifySwagger, {
 
 app.register(fastifySwaggerUi, {
     routePrefix: "/docs"
-})
+});
 
 app.register(fastifyCors, {
     origin: "*"
 });
 
-app.register(UserRoutes, {
-    prefix: "/api/user"
-})
+app.register(AuthRoutes, {
+    prefix: "/auth"
+});
 
-app.listen({ port: 3333 }).then(() => { console.log("HTTP server running!")});
+app.setErrorHandler((error, request, reply) => {
+    if (error instanceof AppError) {
+        return reply.status(error.statusCode).send({ error: error.message });
+    };
+
+    // Log para debug (ajuda em produção)
+    request.log.error(error);
+});
+
+app.listen({
+    port: 3334
+}, () => console.log("HTTP server"));
