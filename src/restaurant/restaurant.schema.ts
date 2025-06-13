@@ -10,6 +10,9 @@ const RestaurantSchema = {
     }),
     getBySlug: z.object({
         slug: z.string()
+    }),
+    deleteByRestaurantId: z.object({
+        restaurantId: z.string()
     })
 };
 

@@ -1,6 +1,6 @@
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import prisma from "../libs/prisma";
 import { AppError } from "../errors/app-error";
+import prisma from "../libs/prisma";
 
 const UserService = {
     findUserById: async (id: string) => {

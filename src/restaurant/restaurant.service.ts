@@ -10,7 +10,7 @@ interface CreateRestaurantInterface {
     description?: string;
 }
 
-const RestaurantRepository = {
+const RestaurantService = {
     create: async (userId: string, data: CreateRestaurantInterface) => {
         try {
             const restaurant = await prisma.restaurant.create({
@@ -30,6 +30,15 @@ const RestaurantRepository = {
                 throw new AppError("Houve um erro ae kkk", 400)
             }
         }   
+    },
+    deleteByRestaurantId: async (restaurantId: string) => {
+        try {
+            await prisma.restaurant.delete({
+                where: { id: restaurantId }
+            })
+        } catch {
+            throw new AppError("Houve um erro ao deletar", 400)
+        }
     },
     getByUserId: async (userId: string) => {
         try {
@@ -57,4 +66,4 @@ const RestaurantRepository = {
     }
 };
 
-export default RestaurantRepository;
+export default RestaurantService;

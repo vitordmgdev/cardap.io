@@ -6,8 +6,6 @@ import type {
     RawServerDefault 
 } from "fastify";
 
-import "fastify";
-
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 
 export type FastifyTypedInstance = FastifyInstance<

@@ -1,5 +1,5 @@
 import { env } from "../env";
-import { transport } from "../libs/transport";
+import { transport } from "./transport";
 import dayjs from "dayjs";
 
 interface verifyEmailProps {

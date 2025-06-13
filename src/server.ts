@@ -12,9 +12,9 @@ import {
 } from "fastify-type-provider-zod";
 import { env } from "./env";
 import { AppError } from "./errors/app-error";
-import { RestaurantRoutes } from "./restaurant/restaurantRoutes";
-import { AuthRoutes } from "./auth/routes";
-import { UserRoutes } from "./user/userRoutes";
+import { RestaurantRoutes } from "./restaurant/restaurant.routes";
+import { AuthRoutes } from "./auth/auth.routes";
+import { UserRoutes } from "./user/user.routes";
 
 declare module "fastify" {
   interface FastifyRequest {
