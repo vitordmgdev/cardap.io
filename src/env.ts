@@ -20,3 +20,5 @@ if (_env.success === false) {
 }
 
 export const env = _env.data;
+
+export const JWT_SECRET_ENCODED = new TextEncoder().encode(env.JWT_SECRET);

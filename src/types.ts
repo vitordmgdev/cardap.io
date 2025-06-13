@@ -1,4 +1,13 @@
-import type { FastifyBaseLogger, FastifyInstance, RawReplyDefaultExpression, RawRequestDefaultExpression, RawServerDefault } from "fastify";
+import type { 
+    FastifyBaseLogger, 
+    FastifyInstance, 
+    RawReplyDefaultExpression, 
+    RawRequestDefaultExpression, 
+    RawServerDefault 
+} from "fastify";
+
+import "fastify";
+
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 
 export type FastifyTypedInstance = FastifyInstance<
